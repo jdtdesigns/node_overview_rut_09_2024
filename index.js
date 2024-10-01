@@ -1,43 +1,145 @@
-const mathTools = {
-  num1: 15,
-  num2: 10,
-  sum: function () {
-    // return the sum of num1 and num2
-    const nested = () => {
-      console.log('nested', this.num1);
-      const moreNested = () => {
-        console.log('moreNested', this.num2);
-      }
-
-      moreNested();
-    }
-
-    nested();
-
-    return this.num1 + this.num2;
+const nums = [10, 3, 100, 70, 8, 55, 88];
+const users = [
+  {
+    name: 'Bob',
+    age: 99
   },
-  difference: function () {
-    // return the difference of num1 and num2 (ie. num1 - num2)
-    return this.num1 - this.num2;
+  {
+    name: 'Jim',
+    age: 25
+  },
+  {
+    name: 'Sarah',
+    age: 40
   }
-};
+];
 
-const sum = mathTools.sum();
-const diff = mathTools.difference();
+const students = [
+  {
+    name: 'Roman',
+    average: 99
+  },
+  {
+    name: 'Matt',
+    average: 80
+  },
+  {
+    name: 'Izzy',
+    average: 95
+  },
+  {
+    name: 'Kandyce',
+    average: 90
+  }
+]
 
-console.log('sum', sum);
-console.log('diff', diff);
+
+const sum = nums.reduce((output, num) => {
+  return output + num
+}, 0);
+
+// const overallAverage = students.reduce((output, studentObj, index, arr) => {
+//   // If we are on the last student, return the output divided by the arr length
+//   if (index === arr.length - 1) {
+//     return (output + studentObj.average) / arr.length;
+//   }
+
+//   // Otherwise, return output + the studentObj's average
+//   return output + studentObj.average;
+// }, 0);
+
+const studentInfo = students.reduce((output, studentObj, index, arr) => {
+  output.overallAverage += studentObj.average;
+
+  if (index === arr.length - 1) {
+    output.overallAverage = output.overallAverage / arr.length;
+  }
+
+  return output;
+}, {
+  overallAverage: 0,
+  studentCount: students.length
+});
+
+console.log(studentInfo);
+
+// let total = 0;
+
+// for (const studentObj of students) {
+//   total += studentObj.average;
+// }
+
+// const overall = total / students.length;
+
+// console.log(overall);
+
+
+
+const evenArray = nums.map((num) => {
+  if ((num % 2) === 0) {
+    return `${num} is even`
+  } else {
+    return `${num} is odd`
+  }
+});
 
 
 
 
 
-function printName(userName) {
-  const capitalize = str => str[0].toUpperCase() + str.slice(1);
+// nums.forEach((num, index) => {
+//   console.log(index);
+// });
 
-  const capName = capitalize(userName);
 
-  console.log(capName);
-}
+// for (const num of nums) {
+//   if (num > 10) {
+//     break;
+//   }
 
-// printName('bob');
+//   console.log(num);
+// }
+
+
+
+
+
+
+// Filtering out values/items
+const filteredNums = nums.filter((num) => {
+  if (num > 10) {
+    return true;
+  }
+});
+
+const filteredUsers = users.filter((userObj) => {
+  if (userObj.age > 30) {
+    return true;
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+// Algorithm challenge - Write a function that orders the array numbers from lowest to highest
+const sorted = nums.sort((currentNum, nextNum) => {
+  return nextNum - currentNum;
+});
+
+// Create a variable that stores a sorted userArray. In your callback function, return the difference between the current object's age and the next object's age
+const sortedUsers = users.sort((currentObj, nextObj) => {
+  return currentObj.age - nextObj.age;
+});
+
+// Create a variable that stores the sorted users array and sorts the objects by name - hint (all letter characters have a number that you can pull with JS)
+
+
+
