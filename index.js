@@ -1,29 +1,32 @@
-const fruits = ['orange', 'apple', 'grape'];
-const fruits2 = ['kiwi', 'banana', 'strawberry'];
-const fruits3 = ['pear', 'peach', 'watermelon'];
-
-const combinedArray = [...fruits, 'dragon fruit', ...fruits3, ...fruits2];
-
-// const concatCombined = fruits.concat(fruits2).concat(another).concat(oneMore);
-
 const data = {
   name: 'JD',
-  age: 44
-};
-
-
-const combinedData = {
-  ...data,
+  age: 44,
   address: '555 coding dr',
-  phone: '777-777-7777'
+  phone: '777-777-7777',
+  info: {
+    location: 'Atlanta',
+    county: 'Cobb',
+    places: ['Lake Acworth', 'Georgia Aquarium']
+  }
 };
 
+const { age: userAge, address } = data;
 
-function printNames(...names) {
-  for (const name of names) {
-    console.log(name);
-  }
-}
+console.log(userAge);
 
-// printNames('Bob', 'Jane', 'Frank', 'Jill', 'Billy');
-printNames('Wilson', 'Harriet');
+// function printData({ color, length }) {
+
+//   console.log(length);
+// }
+
+// printData({
+//   color: 'blue',
+//   length: 10
+// })
+
+
+const fruits = ['orange', 'apple', 'kiwi'];
+
+const [thatFruit, a, b] = fruits;
+
+console.log(thatFruit);
