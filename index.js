@@ -1,32 +1,33 @@
-const data = {
-  name: 'JD',
-  age: 44,
-  address: '555 coding dr',
-  phone: '777-777-7777',
-  info: {
-    location: 'Atlanta',
-    county: 'Cobb',
-    places: ['Lake Acworth', 'Georgia Aquarium']
-  }
-};
+const fs = require('fs');
 
-const { age: userAge, address } = data;
+function spinWheel() {
+  fs.readFile('./names.txt', 'utf8', (error, data) => {
+    if (error) {
+      return console.log(error);
+    }
+    const names = data.replace('\r', '').split('\n');
+    let cycleAmount = 30;
 
-console.log(userAge);
+    const cycle = setInterval(() => {
+      const ranNum = Math.random();
+      const index = Math.floor(ranNum * names.length);
+      const ranName = names[index];
 
-// function printData({ color, length }) {
+      console.clear();
 
-//   console.log(length);
-// }
+      cycleAmount--;
 
-// printData({
-//   color: 'blue',
-//   length: 10
-// })
+      if (cycleAmount === 0) {
+        clearInterval(cycle);
+
+        console.log(`---------\n${ranName}, you are the lucky contestant!\n---------`);
+      } else {
+        console.log(ranName);
+      }
+    }, 75);
+  });
+}
+
+spinWheel();
 
 
-const fruits = ['orange', 'apple', 'kiwi'];
-
-const [thatFruit, a, b] = fruits;
-
-console.log(thatFruit);
