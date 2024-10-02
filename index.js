@@ -1,6 +1,5 @@
 const fs = require('fs');
-const command = process.argv[2];
-const studentName = process.argv[3];
+const inquirer = require('inquirer');
 
 function spinWheel() {
   fs.readFile('./names.txt', 'utf8', (error, data) => {
@@ -23,6 +22,8 @@ function spinWheel() {
         clearInterval(cycle);
 
         console.log(`---------\n${ranName}, you are the lucky contestant!\n---------`);
+
+        showMenu();
       } else {
         console.log(ranName);
       }
@@ -40,24 +41,33 @@ function addName() {
   });
 }
 
-function welcomeMessage() {
+function showMenu() {
   console.log(`
     ----------
-    Welcome to the Randome Name Wheel!
-
-    To use this app, type in one of the options:
-    - spin -- This will spin the wheel
-    - add -- This adds a name to the list
-
+    Welcome to the Random Name Wheel!
     ----------
+
   `);
+
+  const menuPromise = inquirer.prompt({
+    message: 'Please choose an option',
+    name: 'menuChoice', // This determines the answerObj's property that this answer will be stored to
+    type: 'list',
+    choices: ['Spin the wheel', 'Add a student']
+  });
+
+  menuPromise.then((answerObj) => {
+    switch (answerObj.menuChoice) {
+      case 'Add a student':
+        addName();
+        break;
+      case 'Spin the wheel':
+        spinWheel();
+    }
+  });
+
 }
 
-switch (command) {
-  case 'add':
-    addName();
-    break;
-  case 'spin':
-    spinWheel();
-}
+showMenu();
+
 
